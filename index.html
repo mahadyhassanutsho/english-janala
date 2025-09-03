@@ -6,13 +6,63 @@
     <title>English Janala</title>
     <!-- Add TailwindCSS and DaisyUI -->
     <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css"
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
       rel="stylesheet"
+      type="text/css"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- Scripts -->
     <script defer src="./scripts/app.js"></script>
   </head>
-  <body></body>
+  <body>
+    <!-- Header -->
+    <header class="bg-[#BADEFF42] shadow-sm">
+      <!-- Navbar -->
+      <nav class="container mx-auto py-5 flex items-center justify-between">
+        <!-- Logo -->
+        <a
+          href="/"
+          class="flex items-center gap-2 transition-transform duration-[1.25s] [transform-style:preserve-3d] [perspective:1000px] hover:rotate-x-[360deg]"
+        >
+          <span class="font-bold text-2xl">English</span>
+          <img src="./assets/logo.png" alt="Logo" />
+          <span class="font-bold text-2xl">জানালা</span>
+        </a>
+        <!-- Nav Actions -->
+        <ul class="flex gap-2 items-center">
+          <li>
+            <button class="btn btn-outline btn-primary group">
+              <img
+                src="./assets/fa-circle-question.png"
+                alt=""
+                class="transition filter group-hover:brightness-0 group-hover:invert"
+              />
+              FAQ
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-outline btn-primary group">
+              <img
+                src="./assets/fa-book-open.png"
+                alt=""
+                class="transition filter group-hover:brightness-0 group-hover:invert"
+              />
+              Learn
+            </button>
+          </li>
+          <li>
+            <button class="btn btn-outline btn-primary group">
+              <img
+                src="./assets/fa-arrow-right-from-bracket.png"
+                alt=""
+                class="transition filter group-hover:brightness-0 group-hover:invert"
+              />
+              Logout
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </body>
 </html>
