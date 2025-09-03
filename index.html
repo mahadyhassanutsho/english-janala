@@ -17,16 +17,18 @@
   </head>
   <body>
     <!-- Header -->
-    <header class="bg-[#BADEFF42] shadow-sm">
+    <header class="bg-[#BADEFF42] shadow-sm px-4">
       <!-- Navbar -->
-      <nav class="container mx-auto py-5 flex items-center justify-between">
+      <nav
+        class="container mx-auto py-5 flex flex-col md:flex-row gap-3 items-center justify-between"
+      >
         <!-- Logo -->
         <a
           href="/"
           class="flex items-center gap-2 transition-transform duration-[1.25s] [transform-style:preserve-3d] [perspective:1000px] hover:rotate-x-[360deg]"
         >
           <span class="font-bold text-2xl">English</span>
-          <img src="./assets/logo.png" alt="Logo" />
+          <img src="./assets/logo.png" alt="Logo" class="w-full h-auto" />
           <span class="font-bold text-2xl">জানালা</span>
         </a>
         <!-- Nav Actions -->
@@ -64,5 +66,36 @@
         </ul>
       </nav>
     </header>
+
+    <!-- Hero -->
+    <main
+      class="container my-10 mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-2"
+    >
+      <!-- Left Side -->
+      <section class="lg:w-1/2 space-y-8">
+        <h1 class="text-5xl font-bold text-slate-800">
+          <span class="text-blue-400">English</span> is Easy!!
+        </h1>
+        <p class="mt-4 text-lg text-slate-700">
+          আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন অথবা
+          আপনার দক্ষতা বাড়াতে চান, আমাদের Interactive Lessons আপনাকে নিয়ে যাবে
+          অন্য একটি Level এ
+        </p>
+        <form class="flex flex-col gap-4">
+          <input type="text" placeholder="Enter your name..." class="input" />
+          <input type="password" placeholder="**********" class="input" />
+          <button class="btn btn-primary w-fit">Get Started</button>
+        </form>
+      </section>
+
+      <!-- Right Side -->
+      <aside class="lg:w-1/3">
+        <img
+          src="./assets/hero-student.png"
+          alt="Hero Image"
+          class="w-full h-auto"
+        />
+      </aside>
+    </main>
   </body>
 </html>
