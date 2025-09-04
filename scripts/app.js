@@ -7,14 +7,19 @@ const lessonContainer = document.getElementById("lesson-container");
 
 // Template Strings
 const lessonContentEmpty = `
-        <div
+   <div
           class="col-span-3 py-14 w-full flex flex-col justify-center items-center gap-4"
           id="lesson-content-empty"
         >
+          <img
+            src="./assets/alert-error.png"
+            alt="Alert Error Icon"
+            class="h-16 w-16 object-contain"
+          />
           <p class="text-[#79716B] text-sm">
-            আপনি যে Lesson টি Select করেছেন, সেটিতে কোন Content নেই।
+            এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।
           </p>
-          <h3 class="text-2xl">এই Lesson এ কোন Content নেই।</h3>
+          <h3 class="text-2xl">Next Lesson এ যান।</h3>
         </div>`;
 const lessonContentNotSelected = `
        <div
@@ -67,9 +72,15 @@ const initialRender = () => {
 const renderWord = (word) => `
         <div class="p-10 space-y-8 bg-white rounded-xl">
           <div class="space-y-2 text-center">
-            <h3 class="font-bold text-4xl">${word.word}</h3>
+            <h3 class="font-bold text-4xl">${
+              word.word || "শব্দ খুঁজে পাওয়া হয়নি"
+            }</h3>
             <p class="text-lg">Meaning/Pronunciation</p>
-            <h3 class="text-3xl">"${word.meaning}/${word.pronunciation}"</h3>
+            <h3 class="text-3xl">
+              "${word.meaning || "অজানা অর্থ"}/${
+  word.pronunciation || "অজানা উচ্চারণ"
+}"
+            </h3>
           </div>
           <div class="flex items-center justify-between">
             <button

@@ -77,12 +77,12 @@ https://openapi.programming-hero.com/api/words/all
 
 ### 5. Handling Invalid Data
 
-- [ ] avoid displaying falsy values like `undefined` or `null`
-- [ ] display relevant words if no data is found
+- [x] avoid displaying falsy values like `undefined` or `null`
+- [x] display relevant words if no data is found
 
 ### 6. Loading Spinner
 
-- [ ] Create a loading spinner that will be display when vocabulary is loading from API
+- [x] Create a loading spinner that will be display when vocabulary is loading from API
 
 ### 7. Implement Search Functionality
 
