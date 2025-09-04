@@ -57,13 +57,13 @@ https://openapi.programming-hero.com/api/words/all
 
 ---
 
-- [ ] Create functionality to highlight the active lesson button
+- [x] Create functionality to highlight the active lesson button
 
 ---
 
 ### 3. Use Different Color on The Active Level Button
 
-- [ ] After Successfully Loading words of a level , diffirentiate the button so user can understand which button is active
+- [x] After Successfully Loading words of a level , diffirentiate the button so user can understand which button is active
 
 ### 4. Vocabulary Details
 
