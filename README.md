@@ -67,13 +67,13 @@ https://openapi.programming-hero.com/api/words/all
 
 ### 4. Vocabulary Details
 
-- [ ] Create functionality to open a modal when clicking the details icon
-- [ ] Data will be load from **API-03**
-- [ ] modal will displays:
-  - [ ] Word with pronunciation
-  - [ ] Example sentence
-  - [ ] Synonyms
-  - [ ] A "Complete Learning" button to close the modal
+- [x] Create functionality to open a modal when clicking the details icon
+- [x] Data will be load from **API-03**
+- [x] modal will displays:
+  - [x] Word with pronunciation
+  - [x] Example sentence
+  - [x] Synonyms
+  - [x] A "Complete Learning" button to close the modal
 
 ### 5. Handling Invalid Data
 

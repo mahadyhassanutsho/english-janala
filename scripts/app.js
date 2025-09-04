@@ -64,13 +64,26 @@ const getLesson = async (id) => {
   return data;
 };
 
+const getWordDetails = async (id) => {
+  const response = await fetch(
+    `https://openapi.programming-hero.com/api/word/${id}`
+  );
+  const content = await response.json();
+  const data = await content.data;
+  return data;
+};
+
 // Render Functions
 const initialRender = () => {
   lessonContainer.innerHTML = lessonContentNotSelected;
 };
 
-const renderWord = (word) => `
-        <div class="p-10 space-y-8 bg-white rounded-xl">
+const renderWord = async (word) => {
+  const wordDetails = await getWordDetails(word.id);
+  return `
+        <div class="p-10 space-y-8 bg-white rounded-xl cursor-pointer" onclick="modal_${
+          word.level
+        }_${word.id}.showModal()">
           <div class="space-y-2 text-center">
             <h3 class="font-bold text-4xl">${
               word.word || "শব্দ খুঁজে পাওয়া হয়নি"
@@ -78,8 +91,8 @@ const renderWord = (word) => `
             <p class="text-lg">Meaning/Pronunciation</p>
             <h3 class="text-3xl">
               "${word.meaning || "অজানা অর্থ"}/${
-  word.pronunciation || "অজানা উচ্চারণ"
-}"
+    word.pronunciation || "অজানা উচ্চারণ"
+  }"
             </h3>
           </div>
           <div class="flex items-center justify-between">
@@ -94,7 +107,52 @@ const renderWord = (word) => `
               <i class="fa-solid fa-volume-high"></i>
             </button>
           </div>
-        </div>`;
+        </div>
+        
+        
+        <dialog id="modal_${word.level}_${word.id}" class="modal">
+          <div class="modal-box p-8 space-y-5">
+            <h3 class="text-4xl font-bold">
+              ${
+                wordDetails.word
+              } (<i class="fa-solid fa-microphone-lines"></i> : ${
+    wordDetails.pronunciation || "অজানা উচ্চারণ"
+  })
+            </h3>
+            <div>
+              <h4 class="font-bold text-2xl">Meaning</h4>
+              <p class="text-2xl">${wordDetails.meaning || "অজানা অর্থ"}</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-2xl">Example</h4>
+              <p class="text-2xl">${wordDetails.sentence || "অজানা উদাহরণ"}</p>
+            </div>
+
+            <div class="space-y-2">
+              <h4 class="font-bold text-2xl">Synonyms</h4>
+              <ul class="flex items-center gap-4">
+                ${wordDetails.synonyms
+                  .map(
+                    (synonym) => `
+                  <li
+                    class="bg-blue-100 py-2 px-6 border border-blue-300 rounded-xl"
+                  >
+                    <p>${synonym || "অজানা প্রতিশব্দ"}</p>
+                  </li>
+                `
+                  )
+                  .join("")}
+              </ul>
+            </div>
+
+            <div class="modal-action">
+              <form method="dialog">
+                <button class="btn btn-primary">Complete Learning</button>
+              </form>
+            </div>
+          </div>
+        </dialog>`;
+};
 
 // Event Listeners
 lessonSelector.addEventListener("click", async (e) => {
@@ -115,13 +173,20 @@ lessonSelector.addEventListener("click", async (e) => {
     if (words.length === 0) {
       lessonContainer.innerHTML = lessonContentEmpty;
     } else {
-      const lessonContent = words.map((word) => renderWord(word)).join("");
-      lessonContainer.innerHTML = lessonContent;
+      const lessonContent = await Promise.all(
+        words.map(async (word) => await renderWord(word))
+      );
+      lessonContainer.innerHTML = lessonContent.join("");
     }
   } else {
+    // Make Clicked Button Active and Remove Active from Others
+    lessonSelectorButtons.forEach((btn) => {
+      btn.classList.add("btn-outline");
+    });
+    // Render Not Selected State
     lessonContainer.innerHTML = lessonContentNotSelected;
   }
 });
 
-// Initial Render
+//  Initial Render
 initialRender();
