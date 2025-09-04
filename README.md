@@ -34,26 +34,26 @@ https://openapi.programming-hero.com/api/words/all
 
 ### 1. Show Levels on The UI
 
-- [ ] Show a center-aligned heading as Figma
+- [x] Show a center-aligned heading as Figma
 
 ---
 
-- [ ] Create dynamically generated buttons from **API-01** for each lesson
-- [ ] Lesson Buttons will be displayed on page load
+- [x] Create dynamically generated buttons from **API-01** for each lesson
+- [x] Lesson Buttons will be displayed on page load
 
 ---
 
 ### 2. Show Word Cards Based on Level
 
-- [ ] Show a default text that will be displayed in the Vocabulary section initially
-- [ ] on Clicking a Specific Lesson Button Load All the words from **API-02**
-- [ ] Display all words for a selected lesson in a card format, showing:
+- [x] Show a default text that will be displayed in the Vocabulary section initially
+- [x] on Clicking a Specific Lesson Button Load All the words from **API-02**
+- [x] Display all words for a selected lesson in a card format, showing:
 
-  - [ ] Word
-  - [ ] Word meaning & pronunciation
-  - [ ] Two buttons with relevant icons as per Figma
+  - [x] Word
+  - [x] Word meaning & pronunciation
+  - [x] Two buttons with relevant icons as per Figma
 
-- [ ] Show **\*No Word Found** message if no words exist for a lesson
+- [x] Show **\*No Word Found** message if no words exist for a lesson
 
 ---
 

@@ -51,34 +51,34 @@
         <!-- Nav Actions -->
         <ul class="flex gap-2 items-center">
           <li>
-            <button class="btn btn-outline btn-primary group">
+            <a href="#faq" class="btn btn-outline btn-primary group">
               <img
                 src="./assets/fa-circle-question.png"
                 alt=""
                 class="transition filter group-hover:brightness-0 group-hover:invert"
               />
               FAQ
-            </button>
+            </a>
           </li>
           <li>
-            <button class="btn btn-outline btn-primary group">
+            <a href="#learn" class="btn btn-outline btn-primary group">
               <img
                 src="./assets/fa-book-open.png"
                 alt=""
                 class="transition filter group-hover:brightness-0 group-hover:invert"
               />
               Learn
-            </button>
+            </a>
           </li>
           <li>
-            <button class="btn btn-outline btn-primary group">
+            <a href="#logout" class="btn btn-outline btn-primary group">
               <img
                 src="./assets/fa-arrow-right-from-bracket.png"
                 alt=""
                 class="transition filter group-hover:brightness-0 group-hover:invert"
               />
               Logout
-            </button>
+            </a>
           </li>
         </ul>
       </nav>
@@ -116,7 +116,7 @@
     </main>
 
     <!-- Learn Section -->
-    <section class="container mx-auto my-10 px-4 space-y-6">
+    <section id="learn" class="container mx-auto my-10 px-4 space-y-6">
       <h2 class="text-3xl text-slate-800 font-bold text-center">
         <span class="text-blue-400"> Let's </span> Learn Vocabularies
       </h2>
@@ -165,7 +165,7 @@
 
       <!-- Lessons -->
       <div
-        class="bg-[#F8F8F8] rounded p-5 grid grid-cols-3 gap-4"
+        class="bg-[#F8F8F8] rounded p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         id="lesson-container"
       ></div>
     </section>
