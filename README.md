@@ -98,8 +98,8 @@ https://openapi.programming-hero.com/api/words/all
 
 ### 9. Speak your Vocabularies
 
-- [ ] Create functionality for voice pronunciation of vocabulary words
-- [ ] Use below function and implement on clicking sound icon
+- [x] Create functionality for voice pronunciation of vocabulary words
+- [x] Use below function and implement on clicking sound icon
 
 ```js
 function pronounceWord(word) {

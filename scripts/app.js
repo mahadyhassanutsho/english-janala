@@ -20,7 +20,8 @@ const lessonContentEmpty = `
             এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।
           </p>
           <h3 class="text-2xl">Next Lesson এ যান।</h3>
-        </div>`;
+        </div>
+        `;
 const lessonContentNotSelected = `
        <div
           class="col-span-3 py-14 w-full flex flex-col justify-center items-center gap-4"
@@ -30,7 +31,8 @@ const lessonContentNotSelected = `
             আপনি এখনো কোন Lesson Select করেন নি।
           </p>
           <h3 class="text-2xl">একটি Lesson Select করুন।</h3>
-        </div>`;
+        </div>
+        `;
 const lessonContentLoadingSkeleton = `
         <div class="p-10 space-y-8 bg-white rounded-xl">
           <div
@@ -52,7 +54,8 @@ const lessonContentLoadingSkeleton = `
               <i class="fa-solid fa-volume-high"></i>
             </button>
           </div>
-        </div>`;
+        </div>
+        `;
 
 // Fetch Functions
 const getLesson = async (id) => {
@@ -81,9 +84,7 @@ const initialRender = () => {
 const renderWord = async (word) => {
   const wordDetails = await getWordDetails(word.id);
   return `
-        <div class="p-10 space-y-8 bg-white rounded-xl cursor-pointer" onclick="modal_${
-          word.level
-        }_${word.id}.showModal()">
+        <div class="p-10 space-y-8 bg-white rounded-xl " >
           <div class="space-y-2 text-center">
             <h3 class="font-bold text-4xl">${
               word.word || "শব্দ খুঁজে পাওয়া হয়নি"
@@ -98,11 +99,13 @@ const renderWord = async (word) => {
           <div class="flex items-center justify-between">
             <button
               class="p-4 bg-[#1a91ff1a] rounded-xl text-xl hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
+              onclick="modal_${word.level}_${word.id}.showModal()"
             >
               <i class="fa-solid fa-circle-info"></i>
             </button>
             <button
               class="p-4 bg-[#1a91ff1a] rounded-xl text-xl hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
+              onclick="pronounceWord('${word.word}')"
             >
               <i class="fa-solid fa-volume-high"></i>
             </button>
@@ -151,7 +154,15 @@ const renderWord = async (word) => {
               </form>
             </div>
           </div>
-        </dialog>`;
+        </dialog>
+        `;
+};
+
+// Utility Functions
+const pronounceWord = (word) => {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
 };
 
 // Event Listeners
