@@ -92,9 +92,9 @@ https://openapi.programming-hero.com/api/words/all
 
 ### 8. Save Word Feature
 
-- [ ] in the UI of Card add a button `Heart icon`
-- [ ] on Clicking it. Store the Word in the Saved Box
-- [ ] Show Saved words in a Different Section.
+- [x] in the UI of Card add a button `Heart icon`
+- [x] on Clicking it. Store the Word in the Saved Box
+- [x] Show Saved words in a Different Section.
 
 ### 9. Speak your Vocabularies
 

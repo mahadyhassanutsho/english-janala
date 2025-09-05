@@ -35,7 +35,7 @@ const lessonContentNotSelected = `
         </div>
         `;
 const lessonContentLoadingSkeleton = `
-        <div class="p-10 space-y-8 bg-white rounded-xl">
+        <div class="p-10 space-y-8 bg-white rounded-xl flex flex-col justify-between">
           <div
             class="w-full space-y-2 flex flex-col justify-center items-center"
           >
@@ -47,16 +47,24 @@ const lessonContentLoadingSkeleton = `
             <button
               class="p-4 bg-[#1a91ff1a] rounded-xl text-xl hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
             >
-              <i class="fa-solid fa-circle-info"></i>
+              <i class="fa-solid fa-heart"></i>
             </button>
             <button
               class="p-4 bg-[#1a91ff1a] rounded-xl text-xl hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
             >
               <i class="fa-solid fa-volume-high"></i>
             </button>
+            <button
+              class="p-4 bg-[#1a91ff1a] rounded-xl text-xl hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
+            >
+              <i class="fa-solid fa-circle-info"></i>
+            </button>
           </div>
         </div>
         `;
+
+// Application Data
+const favoritesWordIDs = new Set();
 
 // Fetch Functions
 const getLesson = async (id) => {
@@ -85,7 +93,7 @@ const initialRender = () => {
 const renderWord = async (word) => {
   const wordDetails = await getWordDetails(word.id);
   return `
-        <div class="p-10 space-y-8 bg-white rounded-xl " >
+        <div class="p-10 space-y-8 bg-white rounded-xl flex flex-col justify-between" >
           <div class="space-y-2 text-center">
             <h3 class="font-bold text-4xl">${
               word.word || "শব্দ খুঁজে পাওয়া হয়নি"
@@ -99,16 +107,24 @@ const renderWord = async (word) => {
           </div>
           <div class="flex items-center justify-between">
             <button
-              class="p-4 bg-[#1a91ff1a] rounded-xl text-xl hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
-              onclick="modal_${word.level}_${word.id}.showModal()"
+              class="p-4 bg-[#1a91ff1a] rounded-xl text-xl ${
+                favoritesWordIDs.has(String(word.id)) ? "text-red-500" : ""
+              } hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
+              onclick="toggleFavorites('${word.id}', event)"
             >
-              <i class="fa-solid fa-circle-info"></i>
+              <i class="fa-solid fa-heart"></i>
             </button>
             <button
               class="p-4 bg-[#1a91ff1a] rounded-xl text-xl hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
               onclick="pronounceWord('${word.word}')"
             >
               <i class="fa-solid fa-volume-high"></i>
+            </button>
+            <button
+              class="p-4 bg-[#1a91ff1a] rounded-xl text-xl hover:bg-[#1a91ff33] transition-colors duration-500 ease-in-out cursor-pointer"
+              onclick="modal_${word.level}_${word.id}.showModal()"
+            >
+              <i class="fa-solid fa-circle-info"></i>
             </button>
           </div>
         </div>
@@ -166,35 +182,61 @@ const pronounceWord = (word) => {
   window.speechSynthesis.speak(utterance);
 };
 
+const toggleFavorites = (wordId, event) => {
+  const target = event.currentTarget;
+  if (favoritesWordIDs.has(wordId)) {
+    favoritesWordIDs.delete(wordId);
+    target.classList.remove("text-red-500");
+    alert("Removed Word from favorites.");
+  } else {
+    favoritesWordIDs.add(wordId);
+    target.classList.add("text-red-500");
+    alert("Added Word to favorites.");
+  }
+};
+
+const prepareLessonRender = async (e) => {
+  // Empty Lesson Container
+  lessonContainer.innerHTML = "";
+  // Render Loading Skeleton
+  lessonContainer.innerHTML = lessonContentLoadingSkeleton.repeat(3);
+  // Make Clicked Button Active and Remove Active from Others
+  lessonSelectorButtons.forEach((btn) => {
+    btn.classList.add("btn-outline");
+  });
+  e.target.classList.remove("btn-outline");
+};
+
+const loadLessonAndRender = async (words) => {
+  // Render Empty State
+  if (words.length === 0) {
+    lessonContainer.innerHTML = lessonContentEmpty;
+  } else {
+    // TODO: Make Search Form Visible
+    // lessonSearchForm.classList.remove("hidden");
+    // lessonSearchForm.classList.add("flex");
+    // Render Lesson Content
+    const lessonContent = await Promise.all(
+      words.map(async (word) => await renderWord(word))
+    );
+    lessonContainer.innerHTML = lessonContent.join("");
+  }
+};
+
 // Event Listeners
 lessonSelector.addEventListener("click", async (e) => {
   const lessonId = e.target.dataset.lessonId;
-  if (lessonId) {
-    // Empty Lesson Container
-    lessonContainer.innerHTML = "";
-    // Render Loading Skeleton
-    lessonContainer.innerHTML = lessonContentLoadingSkeleton.repeat(3);
-    // Make Clicked Button Active and Remove Active from Others
-    lessonSelectorButtons.forEach((btn) => {
-      btn.classList.add("btn-outline");
-    });
-    e.target.classList.remove("btn-outline");
-    // Fetch Lesson Data
-    const words = await getLesson(lessonId);
-    // Render Empty State
-    if (words.length === 0) {
-      lessonContainer.innerHTML = lessonContentEmpty;
-    } else {
-      // TODO: Make Search Form Visible
-      // lessonSearchForm.classList.remove("hidden");
-      // lessonSearchForm.classList.add("flex");
 
-      // Render Lesson Content
-      const lessonContent = await Promise.all(
-        words.map(async (word) => await renderWord(word))
-      );
-      lessonContainer.innerHTML = lessonContent.join("");
-    }
+  if (lessonId === "favorites") {
+    await prepareLessonRender(e);
+    const favoritesWords = await Promise.all(
+      [...favoritesWordIDs].map(async (wordId) => await getWordDetails(wordId))
+    );
+    await loadLessonAndRender(favoritesWords);
+  } else if (Number(lessonId)) {
+    prepareLessonRender(e);
+    const words = await getLesson(lessonId);
+    await loadLessonAndRender(words);
   } else {
     // TODO: Hide Search Form
     // lessonSearchForm.classList.add("hidden");
