@@ -164,6 +164,17 @@
         </li>
       </ul>
 
+      <!-- TODO: Search -->
+      <!-- <form
+        class="max-w-md min-w-fit mx-auto hidden flex-col gap-4 p-5"
+        id="lesson-search-form"
+      >
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend text-lg">Looking for a Word?</legend>
+          <input type="text" class="input" placeholder="Search here..." />
+        </fieldset>
+      </form> -->
+
       <!-- Lessons -->
       <div
         class="bg-[#F8F8F8] rounded p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
@@ -241,9 +252,11 @@
     <!-- Footer -->
     <footer class="bg-[#BADEFF42] shadow-sm mt-12">
       <div
-        class="container mx-auto py-12 px-4 space-y-8 flex justify-between items-end flex-col md:flex-row"
+        class="container mx-auto py-12 px-4 space-y-8 flex justify-between items-center flex-col md:flex-row"
       >
-        <div class="text-center md:text-left space-y-2">
+        <div
+          class="flex flex-col justify-center items-center md:items-start gap-2"
+        >
           <!-- Logo -->
           <a
             href="/"
@@ -259,7 +272,11 @@
           </small>
         </div>
         <div class="space-y-4">
-          <p class="uppercase font-semibold text-slate-700">Follow Us</p>
+          <p
+            class="uppercase font-semibold text-slate-700 text-center lg:text-left"
+          >
+            Follow Us
+          </p>
           <ul class="flex items-center gap-4">
             <li>
               <a href="">

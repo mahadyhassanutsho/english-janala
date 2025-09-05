@@ -4,6 +4,7 @@ const lessonSelectorButtons = lessonSelector.querySelectorAll(
   "#lesson-selector button"
 );
 const lessonContainer = document.getElementById("lesson-container");
+// TODO: const lessonSearchForm = document.getElementById("lesson-search-form");
 
 // Template Strings
 const lessonContentEmpty = `
@@ -184,12 +185,21 @@ lessonSelector.addEventListener("click", async (e) => {
     if (words.length === 0) {
       lessonContainer.innerHTML = lessonContentEmpty;
     } else {
+      // TODO: Make Search Form Visible
+      // lessonSearchForm.classList.remove("hidden");
+      // lessonSearchForm.classList.add("flex");
+
+      // Render Lesson Content
       const lessonContent = await Promise.all(
         words.map(async (word) => await renderWord(word))
       );
       lessonContainer.innerHTML = lessonContent.join("");
     }
   } else {
+    // TODO: Hide Search Form
+    // lessonSearchForm.classList.add("hidden");
+    // lessonSearchForm.classList.remove("flex");
+
     // Make Clicked Button Active and Remove Active from Others
     lessonSelectorButtons.forEach((btn) => {
       btn.classList.add("btn-outline");
